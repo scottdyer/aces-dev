@@ -23,12 +23,18 @@ images, and documentation.
 * [`images/`](./images) - "golden" images created using the reference implementation transforms
 * [`transforms/`](./transforms) - ACES reference implementation transforms
 
-### Changes from Previous Releases ###
+### Changes from Previous Releases ##
+
+&nbsp;&nbsp; **v0.7**
 
 *  Updates forward and inverse RRT
 *  Updates forward and inverse ODTs
 *  Updates the ARRI Alexa and Sony IDTs
 *  Fixes a typo in the ACES-to-ACESproxy10 transform
+
+&nbsp;&nbsp; **v0.7.1**
+
+* Bug fixes
 
 For a detailed list of changes see the [CHANGELOG](./CHANGELOG.md).
 
