@@ -31,8 +31,8 @@ midsRange = [1.,1.5,2.]
 maxxRange = [6.5,15.,20.]
 maxyRange = [48.,10000.,10000.]
 maxsRange = [0.,0.,1.]
-pctLRange = [0.1, 0.25, 0.4]
-pctHRange = [0.6, 0.75, 0.9]
+pctLRange = [0.1, 0.25, 0.5]
+pctHRange = [0.5, 0.75, 0.9]
 
 minx = 0.18*pow(2.,minxRange[1])
 miny = minyRange[1]
