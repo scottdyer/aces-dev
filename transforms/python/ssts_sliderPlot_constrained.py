@@ -145,17 +145,20 @@ button.on_clicked(reset)
 
 # Preset buttons
 presetaxcolor = '#92CCEA'
-presetax1 = plt.axes([0.1, 0.025, 0.1, 0.03])
+presetax1 = plt.axes([0.05, 0.025, 0.1, 0.03])
 button1 = Button(presetax1, '"OCES"', color=presetaxcolor)
 
-presetax2 = plt.axes([0.25, 0.025, 0.1, 0.03])
+presetax2 = plt.axes([0.2, 0.025, 0.1, 0.03])
 button2 = Button(presetax2, 'x300', color=presetaxcolor)
 
-presetax3 = plt.axes([0.4, 0.025, 0.1, 0.03])
+presetax3 = plt.axes([0.35, 0.025, 0.1, 0.03])
 button3 = Button(presetax3, 'PRM-4220', color=presetaxcolor)
 
-presetax4 = plt.axes([0.55, 0.025, 0.1, 0.03])
+presetax4 = plt.axes([0.5, 0.025, 0.1, 0.03])
 button4 = Button(presetax4, 'Dolby Cinema', color=presetaxcolor)
+
+presetax5 = plt.axes([0.65, 0.025, 0.1, 0.03])
+button5 = Button(presetax5, 'Standard Cinema', color=presetaxcolor)
 
 def preset_OCES(event):
     s_minY.set_val( np.log10(0.0001))
@@ -176,11 +179,17 @@ def preset_dolbyCinema(event):
     s_minY.set_val( np.log10(0.0001))
     s_midY.set_val( np.log10(7.2))
     s_maxY.set_val( np.log10(108.))
+
+def preset_cinema(event):
+    s_minY.set_val( np.log10(0.02))
+    s_midY.set_val( np.log10(4.8))
+    s_maxY.set_val( np.log10(48.))
     
 button1.on_clicked(preset_OCES)
 button2.on_clicked(preset_x300)
 button3.on_clicked(preset_prm4220)
 button4.on_clicked(preset_dolbyCinema)
+button5.on_clicked(preset_cinema)
 
 
 plt.show()
