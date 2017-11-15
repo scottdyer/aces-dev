@@ -35,6 +35,12 @@ def lookup_pctLow( ACESlow):
 def lookup_pctHigh( ACEShigh):
     return interp_pctHigh( log(ACEShigh/0.18,2.))
 
+def lookup_expShift( midLum):
+    return log(inv_ssts( midLum),2.)-log(0.18,2.)
+
+def shift( x, expShift):
+    return pow(2.,(np.log2(x)-expShift));
+
 M = np.array([[0.5, -1.0, 0.5], [-1.0, 1.0, 0.0], [0.5, 0.5, 0.0]])
 
 
