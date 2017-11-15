@@ -59,9 +59,9 @@ Y = np.log10( ssts.ssts(aces,initialMin,initialMid,initialMax,ssts.lookup_pctLow
 
 # Make the initial plot
 x = aces2stops(aces)
-l, = plt.plot( x, Y, lw=2, color='red')
-ll, = plt.plot( x, rrt, lw=1, color='black', linestyle='--')
-lll, = plt.plot( x, cinema, lw=1, color='black', linestyle=':')
+ll, = plt.plot( x, rrt, lw=1, color='black', linestyle='--', label='"OCES" (i.e. RRT)')
+lll, = plt.plot( x, cinema, lw=1, color='black', linestyle=':', label='48-nit cinema')
+l, = plt.plot( x, Y, lw=2, color='red', label='Adjustable')
 
 hmin, = plt.plot( aces2stops(minx), log10(miny), color='red', marker='o')
 hmid, = plt.plot( aces2stops(midx), log10(midy), color='red', marker='o')
@@ -74,6 +74,8 @@ plt.axis([-20, 20, -4.5, 4.5])
 plt.grid(b=True,which='major',axis='both')
 plt.xlabel("scene exposure - stops relative to 18% mid-gray")
 plt.ylabel("log$_{10}$ luminance ($cd/m^2$)")
+
+plt.legend(loc='upper left')
 
 axcolor = '#d1d1fa'
 
