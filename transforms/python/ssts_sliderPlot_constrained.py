@@ -8,8 +8,8 @@ def aces2stops( aces):
     return np.log2(aces)-np.log2(0.18)
 
 hgt = 0.04
-wdt = 0.23
-hspc = 0.1
+wdt = 0.17
+hspc = 0.15
 ledge = 0.05
 
 fig, ax = plt.subplots( figsize=(12,7) )
@@ -80,16 +80,16 @@ plt.legend(loc='upper left')
 axcolor = '#d1d1fa'
 
 # Create sliders
-ax_minY = plt.axes([ledge, 0.1, wdt, hgt], facecolor='white')
-s_minY = Slider(ax_minY, 'min Y', np.log10(minyRange[0]), np.log10(minyRange[2]), valinit=np.log10(minyRange[1]), valfmt="%0.4f")
+ax_minY = plt.axes([ledge+0.07, 0.085, wdt, hgt], facecolor='white')
+s_minY = Slider(ax_minY, 'black lum ($cd/m^2$)', np.log10(minyRange[0]), np.log10(minyRange[2]), valinit=np.log10(minyRange[1]), valfmt="%0.4f")
 s_minY.valtext.set_text( pow(10., s_minY.val))
 
-ax_midY = plt.axes([ledge+wdt+hspc, 0.1, wdt, hgt], facecolor='white')
-s_midY = Slider(ax_midY, 'mid Y', np.log10(midyRange[0]), np.log10(midyRange[2]), valinit=np.log10(midyRange[1]), valfmt="%0.1f")
+ax_midY = plt.axes([ledge+wdt+hspc+0.07, 0.110, wdt, hgt], facecolor='white')
+s_midY = Slider(ax_midY, '18% lum ($cd/m^2$)', np.log10(midyRange[0]), np.log10(midyRange[2]), valinit=np.log10(midyRange[1]), valfmt="%0.1f")
 s_midY.valtext.set_text( pow(10., s_midY.val))
 
-ax_maxY = plt.axes([ledge+2*wdt+2*hspc, 0.1, wdt, hgt], facecolor='white')
-s_maxY = Slider(ax_maxY, 'max Y', np.log10(maxyRange[0]), np.log10(maxyRange[2]), valinit=np.log10(maxyRange[1]), valfmt="%i")
+ax_maxY = plt.axes([ledge+2*wdt+2*hspc+0.07, 0.135, wdt, hgt], facecolor='white')
+s_maxY = Slider(ax_maxY, 'white lum ($cd/m^2$)', np.log10(maxyRange[0]), np.log10(maxyRange[2]), valinit=np.log10(maxyRange[1]), valfmt="%i")
 s_maxY.valtext.set_text( pow(10., s_maxY.val))
 
 def update(val):
