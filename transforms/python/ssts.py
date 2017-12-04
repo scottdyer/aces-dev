@@ -10,11 +10,11 @@ class TsPoint:
 
         
 lumLow = [ log10(0.0001), log10(0.02) ]           # luminance
-stopsLow = [ -16.0, -6.5 ]                        # stops
+stopsLow = [ -15.0, -6.5 ]                        # stops
 pctsLow = [ 0.14, 0.35 ]                          # percentages
 
 lumHigh = [ log10(48.), log10(10000.) ]           # luminance
-stopsHigh = [ 6.5, log(65504.,2)-log(0.18,2) ]    # stops
+stopsHigh = [ 6.5, 18. ]                          # stops
 pctsHigh = [ 0.89, 0.91 ]                         # percentages
 
 interp_ACESmin = interpolate.interp1d( lumLow, stopsLow)
@@ -85,9 +85,9 @@ def init_coefsHigh_wPct( midPt, maxPt, pctHigh):
 
 
 
-defaultMin = TsPoint( 0.18*pow(2.,-16.), 0.0001, 0.1)
+defaultMin = TsPoint( 0.18*pow(2.,-15.), 0.0001, 0.1)
 defaultMid = TsPoint( 0.18, 4.8, 1.5)
-defaultMax = TsPoint( 65504., 10000., 0.1)
+defaultMax = TsPoint( 0.18*pow(2., 18.), 10000., 0.1)
 
 def ssts( xIn, minPt=defaultMin, midPt=defaultMid, maxPt=defaultMax, pctLow=lookup_pctLow(defaultMin.x), pctHigh=lookup_pctHigh(defaultMax.x)):
     N_KNOTS = 4

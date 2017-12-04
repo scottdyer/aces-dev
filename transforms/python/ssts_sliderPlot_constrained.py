@@ -19,9 +19,9 @@ plt.subplots_adjust(left=ledge, top=0.97, bottom=0.25, right=0.97)
 aces = 0.18*pow(2.,np.arange(-23,23,0.5))
 
 # "RRT" settings
-rrtMin = ssts.TsPoint( 0.18*pow(2.,-16), 0.0001, 0.0)
+rrtMin = ssts.TsPoint( 0.18*pow(2.,-15.), 0.0001, 0.0)
 rrtMid = ssts.TsPoint( 0.18, 4.8, 1.5)
-rrtMax = ssts.TsPoint( 65504., 10000., 0.0)
+rrtMax = ssts.TsPoint( 0.18*pow(2.,18.), 10000., 0.0)
 rrt = np.log10( ssts.ssts(aces, rrtMin, rrtMid, rrtMax, ssts.lookup_pctLow(rrtMin.x), ssts.lookup_pctHigh(rrtMax.x)) )
 
 # "48-nit" settings
@@ -35,9 +35,9 @@ minyRange = [0.0001,0.001,0.02]
 midyRange = [2.,4.8,20.]
 maxyRange = [48.,1000.,10000.]
 
-minsl = 0
+minsl = 0.1
 midsl = 1.5
-maxsl = 0
+maxsl = 0.1
 
 miny = minyRange[1]
 minx = ssts.lookup_ACESmin( miny)
