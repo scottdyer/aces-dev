@@ -16,7 +16,7 @@ fig, ax = plt.subplots( figsize=(12,7) )
 plt.subplots_adjust(left=ledge, top=0.97, bottom=0.25, right=0.97)
 
 # ACES values to plot
-aces = 0.18*pow(2.,np.arange(-23,23,0.5))
+aces = 0.18*pow(2.,np.arange(-23,23,0.1))
 
 # "RRT" settings
 rrtMin = ssts.TsPoint( 0.18*pow(2.,-15.), 0.0001, 0.0)
@@ -34,10 +34,12 @@ cinema = np.log10( ssts.ssts(aces, cinemaMin, cinemaMid, cinemaMax, ssts.lookup_
 minyRange = [0.0001,0.001,0.02]
 midyRange = [2.,4.8,20.]
 maxyRange = [48.,1000.,10000.]
+minSlopeRange = [0.0, 0.0, 0.15]
+maxSlopeRange = [0.0, 0.0, 0.15]
 
-minsl = 0.1
+minsl = minSlopeRange[1]
 midsl = 1.5
-maxsl = 0.1
+maxsl = maxSlopeRange[1]
 
 miny = minyRange[1]
 minx = ssts.lookup_ACESmin( miny)
@@ -56,12 +58,14 @@ initialMin = ssts.TsPoint( minx, miny, minsl)
 initialMid = ssts.TsPoint( midx, midy, midsl)
 initialMax = ssts.TsPoint( maxx, maxy, maxsl)
 Y = np.log10( ssts.ssts(aces,initialMin,initialMid,initialMax,ssts.lookup_pctLow(initialMin.x),ssts.lookup_pctHigh(initialMax.x)) )
+# d1 = ssts.ssts_d1(aces,initialMin,initialMid,initialMax,ssts.lookup_pctLow(initialMin.x),ssts.lookup_pctHigh(initialMax.x))
 
 # Make the initial plot
 x = aces2stops(aces)
 ll, = plt.plot( x, rrt, lw=1, color='black', linestyle='--', label='"OCES" (i.e. RRT)')
 lll, = plt.plot( x, cinema, lw=1, color='black', linestyle=':', label='48-nit cinema')
 l, = plt.plot( x, Y, lw=2, color='red', label='Adjustable')
+# lderiv, = plt.plot( x, d1, lw=1, color='red', linestyle=':', label='First derivative')
 
 hmin, = plt.plot( aces2stops(minx), log10(miny), color='red', marker='o')
 hmid, = plt.plot( aces2stops(midx), log10(midy), color='red', marker='o')
@@ -80,17 +84,25 @@ plt.legend(loc='upper left')
 axcolor = '#d1d1fa'
 
 # Create sliders
-ax_minY = plt.axes([ledge+0.07, 0.085, wdt, hgt], facecolor='white')
+ax_minY = plt.axes([ledge+0.07, 0.135, wdt, hgt], facecolor='white')
 s_minY = Slider(ax_minY, 'black lum ($cd/m^2$)', np.log10(minyRange[0]), np.log10(minyRange[2]), valinit=np.log10(minyRange[1]), valfmt="%0.4f")
 s_minY.valtext.set_text( pow(10., s_minY.val))
 
-ax_midY = plt.axes([ledge+wdt+hspc+0.07, 0.110, wdt, hgt], facecolor='white')
+ax_midY = plt.axes([ledge+wdt+hspc+0.07, 0.135, wdt, hgt], facecolor='white')
 s_midY = Slider(ax_midY, '18% lum ($cd/m^2$)', np.log10(midyRange[0]), np.log10(midyRange[2]), valinit=np.log10(midyRange[1]), valfmt="%0.1f")
 s_midY.valtext.set_text( pow(10., s_midY.val))
 
 ax_maxY = plt.axes([ledge+2*wdt+2*hspc+0.07, 0.135, wdt, hgt], facecolor='white')
 s_maxY = Slider(ax_maxY, 'white lum ($cd/m^2$)', np.log10(maxyRange[0]), np.log10(maxyRange[2]), valinit=np.log10(maxyRange[1]), valfmt="%i")
 s_maxY.valtext.set_text( pow(10., s_maxY.val))
+
+ax_minSlope = plt.axes([ledge+0.07, 0.08, wdt, hgt], facecolor='white')
+s_minSlope = Slider(ax_minSlope, 'low slope', minSlopeRange[0], minSlopeRange[2], valinit=minSlopeRange[1], valfmt="%0.1f")
+s_minSlope.valtext.set_text( s_minSlope.val)
+
+ax_maxSlope = plt.axes([ledge+2*wdt+2*hspc+0.07, 0.08, wdt, hgt], facecolor='white')
+s_maxSlope = Slider(ax_maxSlope, 'high slope', maxSlopeRange[0], maxSlopeRange[2], valinit=maxSlopeRange[1], valfmt="%0.1f")
+s_maxSlope.valtext.set_text( s_maxSlope.val)
 
 def update(val):
     midy = 4.8
@@ -101,16 +113,19 @@ def update(val):
     maxx = ssts.lookup_ACESmax(maxy)
     pctLow = ssts.lookup_pctLow( minx)
     pctHigh = ssts.lookup_pctHigh( maxx)
+    minsl = s_minSlope.val
+    maxsl = s_maxSlope.val
 
     Min = ssts.TsPoint( minx, miny, minsl)
     Mid = ssts.TsPoint( midx, midy, midsl)
     Max = ssts.TsPoint( maxx, maxy, maxsl)
 
     expShift = ssts.lookup_expShift( pow(10.,s_midY.val) )
-#     print expShift
 
     l.set_ydata( np.log10( ssts.ssts(aces,Min,Mid,Max,pctLow,pctHigh)) )
     l.set_xdata( aces2stops( ssts.shift(aces,expShift)))
+#     lderiv.set_ydata( ssts.ssts_d1(aces,Min,Mid,Max,pctLow,pctHigh))
+#     lderiv.set_xdata( aces2stops( ssts.shift(aces,expShift)))
 
     hmin.set_xdata( aces2stops(ssts.shift(minx,expShift)))
     hmin.set_ydata( log10(miny))
@@ -127,12 +142,16 @@ def update(val):
     s_minY.valtext.set_text( round(miny,4))
     s_midY.valtext.set_text( round(pow(10.,s_midY.val),1))
     s_maxY.valtext.set_text( round(maxy))
+    s_minSlope.valtext.set_text( round(minsl,2))
+    s_maxSlope.valtext.set_text( round(maxsl,2))
     
     fig.canvas.draw_idle()
 
 s_minY.on_changed(update)
 s_midY.on_changed(update)
 s_maxY.on_changed(update)
+s_minSlope.on_changed(update)
+s_maxSlope.on_changed(update)
 
 # Reset button
 resetax = plt.axes([0.8, 0.025, 0.1, 0.03])

@@ -105,11 +105,6 @@ def ssts( xIn, minPt=defaultMin, midPt=defaultMid, maxPt=defaultMax, pctLow=look
     indexHighHalf = ( (logx >= log10(midPt.x)) & (logx < log10(maxPt.x)) ) # between midPt and maxPt (i.e. upper half of S-curve, highlights)
     indexHigh = (logx >= log10(maxPt.x))    # greater than maxPt (i.e. highlight linear extension)
 
-#     print "indexLow: ", indexLow
-#     print "indexLowHalf: ", indexLowHalf
-#     print "indexHighHalf: ", indexHighHalf
-#     print "indexHigh: ", indexHigh
-
     # Calculate values for linear extension in shadows
     # If minPt.slope=0, this reduces to logy[indexLow] = minPt.y
     logy[indexLow] = logx[indexLow] * minPt.slope + ( log10(minPt.y) - minPt.slope * log10(minPt.x) )
@@ -142,6 +137,54 @@ def ssts( xIn, minPt=defaultMin, midPt=defaultMid, maxPt=defaultMax, pctLow=look
     # Unlog the result
     return pow(10.,logy)
 
+
+def ssts_d1( xIn, minPt=defaultMin, midPt=defaultMid, maxPt=defaultMax, pctLow=lookup_pctLow(defaultMin.x), pctHigh=lookup_pctHigh(defaultMax.x)):
+    N_KNOTS = 4
+    coefsLow = np.array(init_coefsLow_wPct( minPt, midPt, pctLow))
+    coefsHigh = np.array(init_coefsHigh_wPct( midPt, maxPt, pctHigh))
+
+    # Tone scale is defined in log-log space, so we must log the input
+    logx = np.log10( xIn)
+
+    # Create empty array to populate with the calculations
+    d1 = np.zeros_like( logx)
+    
+    indexLow = (logx <= log10(minPt.x))     # less than minPt (i.e. shadow linear extension)
+    indexLowHalf = ( (logx > log10(minPt.x)) & (logx < log10(midPt.x)) )  # between minPt and midPt (i.e. lower half of S-curve, shadows)
+    indexHighHalf = ( (logx >= log10(midPt.x)) & (logx < log10(maxPt.x)) ) # between midPt and maxPt (i.e. upper half of S-curve, highlights)
+    indexHigh = (logx >= log10(maxPt.x))    # greater than maxPt (i.e. highlight linear extension)
+
+    # Calculate values for linear extension in shadows
+    # If minPt.slope=0, this reduces to d1[indexLow] = minPt.y
+    d1[indexLow] = minPt.slope
+
+    # Calculate values for lower half of S-curve, shadows 
+    if (np.sum( indexLowHalf) > 0):
+        knot_coord = (N_KNOTS-1) * (logx[indexLowHalf]-log10(minPt.x))/(log10(midPt.x)-log10(minPt.x))
+        jLow = np.int8(knot_coord)
+        tLow = knot_coord - jLow
+    
+        cfLow = np.array( [coefsLow[ jLow], coefsLow[ jLow + 1], coefsLow[ jLow + 2]] )
+        monomialsLow = np.array( [ 2. * tLow, np.ones_like(tLow), np.zeros_like(tLow) ] )
+        basisLow = np.dot(M,cfLow)
+        d1[indexLowHalf] = sum( monomialsLow * basisLow)
+
+    # Calculate values for upper half of S-curve, highlights     
+    if (np.sum( indexHighHalf) > 0):    
+        knot_coord = (N_KNOTS-1) * (logx[indexHighHalf]-log10(midPt.x))/(log10(maxPt.x)-log10(midPt.x))
+        jHigh = np.int8(knot_coord)
+        tHigh = knot_coord - jHigh
+
+        cfHigh = np.array( [coefsHigh[ jHigh], coefsHigh[ jHigh + 1], coefsHigh[ jHigh + 2]] )
+        monomialsHigh = np.array( [ 2. * tHigh, np.ones_like(tHigh), np.zeros_like(tHigh) ] )
+        basisHigh = np.dot(M,cfHigh)
+        d1[indexHighHalf] = sum( monomialsHigh * basisHigh)
+
+    # Calculate values for linear extension in highlights
+    d1[indexHigh] = maxPt.slope
+
+    # Unlog the result
+    return d1 #pow(10.,d1)
 
 def inv_ssts( yIn, minPt=defaultMin, midPt=defaultMid, maxPt=defaultMax, pctLow=lookup_pctLow(defaultMin.x), pctHigh=lookup_pctHigh(defaultMax.x)):
     N_KNOTS = 4
@@ -228,3 +271,17 @@ def inv_ssts( yIn, minPt=defaultMin, midPt=defaultMid, maxPt=defaultMax, pctLow=
         logx[indexHigh] = (logy[indexHigh] - (log10(maxPt.y)-maxPt.slope*log10(maxPt.x))) / maxPt.slope
 
     return pow(10.,logx)
+
+
+
+
+# print np.array([0.15, 0.18, 0.5, 1.0, 10., 100., 40000.])
+# print ssts(np.array([0.15, 0.18, 0.5, 1.0, 10., 100., 40000.]))
+# inv_ssts( np.array([0.0005,0.01,0.15, 0.18, 4.5, 100.]))
+# print inv_ssts( np.array([0.00001, 0.0001, 0.001, 4.5, 4.8, 5., 10000., 11000.]))
+# print ssts( inv_ssts( np.array([0.00001, 0.0001, 0.001, 4.5, 4.8, 5., 10000., 11000.])) )
+
+# print ssts( np.array([0.18]))             # works fine
+# print inv_ssts( np.array([4.8]))
+# print ssts( inv_ssts( np.array([4.8])) )  # doesn't work because of precision
+# print inv_ssts( np.array([4.8])) < 0.18   # results show as equal but really aren't
