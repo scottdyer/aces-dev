@@ -44,6 +44,7 @@ import "ACESlib.Utilities";
 import "ACESlib.Transform_Common";
 import "ACESlib.ODT_Common";
 import "ACESlib.Tonescales";
+import "ACESlib.OutputTransforms";
 
 
 
