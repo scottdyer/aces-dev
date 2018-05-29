@@ -179,6 +179,10 @@ float[3] outputTransform
         outputCV = ST2084_2_HLG_1000nits( outputCV);
     }
 
+    if (LEGAL_RANGE == true) {
+        outputCV = fullRange_to_smpteRange_f3( outputCV);
+    }
+
     return outputCV;    
 }
 
@@ -206,6 +210,11 @@ float[3] invOutputTransform
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
 
     float outputCV[3] = in;
+
+    if (LEGAL_RANGE == true) {
+        outputCV = smpteRange_to_fullRange_f3( outputCV);
+    }
+
     // Inverse EOTF
     // 0: ST-2084 (PQ)
     // 1: BT.1886 (Rec.709/2020 settings)
