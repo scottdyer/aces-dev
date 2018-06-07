@@ -57,8 +57,10 @@ float[3] outputTransform
 {
     float XYZ_2_DISPLAY_PRI_MAT[4][4] = XYZtoRGB( DISPLAY_PRI, 1.0);
 
-    // NOTE: This is a bit of a hack - probably a more direct way to do this.
-    // Fix in future version
+    /* 
+        NOTE: This is a bit of a hack - probably a more direct way to do this.
+        TODO: Fix in future version
+    */
     TsParams PARAMS_DEFAULT = init_TsParams( Y_MIN, Y_MAX);
     float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-log2(0.18);
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
@@ -71,10 +73,7 @@ float[3] outputTransform
 
     // At this point data encoded AP1, scaled absolute luminance (cd/m^2)
 
-    // Scale to linear code value
-//     if (EOTF != 0) {  // ST-2084 (PQ)
-//         rgbPost = Y_2_linCV_f3( rgbPost, Y_MAX, Y_MIN);
-//     }
+    /*  Scale absolute luminance to linear code value  */
     float linearCV[3] = Y_2_linCV_f3( rgbPost, Y_MAX, Y_MIN);
     
     // Rendering primaries to XYZ
@@ -213,8 +212,10 @@ float[3] invOutputTransform
 {
     float DISPLAY_PRI_2_XYZ_MAT[4][4] = RGBtoXYZ( DISPLAY_PRI, 1.0);
 
-    // NOTE: This is a bit of a hack - probably a more direct way to do this.
-    // Update in accordance with forward algorithm.
+    /* 
+        NOTE: This is a bit of a hack - probably a more direct way to do this.
+        TODO: Update in accordance with forward algorithm.
+    */
     TsParams PARAMS_DEFAULT = init_TsParams( Y_MIN, Y_MAX);
     float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-log2(0.18);
     TsParams PARAMS = init_TsParams( Y_MIN, Y_MAX, expShift);
