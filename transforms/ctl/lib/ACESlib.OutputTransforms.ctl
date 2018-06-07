@@ -81,13 +81,23 @@ float[3] outputTransform
     float XYZ[3] = mult_f3_f44( linearCV, AP1_2_XYZ_MAT);
 
     // Apply gamma adjustment to compensate for dim surround
-    // NOTE: This section would only apply for SDR. This is a placeholder block.
-    // TOD0: Come up with new surround compensation algorithm, applicable across
-    // all dynamic ranges and supporting dark/dim/normal surround.
-//     if (SURROUND == 1) {
-//         print( "\nDim surround\n");
-//         XYZ = dark_to_dim( XYZ);
-//     }
+    /*  NOTE: This section currently only applies for SDR. This is more or less
+        a placeholder block. This uses a local dark_to_dim function that is
+        designed to take in XYZ and return XYZ rather than AP1 as is currently
+        in the functions in 'ACESlib.ODT_Common.ctl' */
+    /*  TOD0: Come up with new surround compensation algorithm, applicable 
+        across all dynamic ranges and supporting dark/dim/normal surround.  */
+    if (SURROUND == 1) {
+        if ((EOTF == 1) || (EOTF == 2) || (EOTF == 3)) { 
+            /* This uses a crude logical assumption that if the EOTF is BT.1886,
+                sRGB, or gamma 2.6 that the data is SDR and so the SDR gamma
+                compensation factor from v1.0 will apply. Note that in the 
+                future it is intended that this module will be updated to 
+                support surround compensation regardless of luminance 
+                dynamic range. */
+            XYZ = dark_to_dim( XYZ);
+        }
+    }
 
     // Gamut limit to limiting primaries
     // NOTE: Would be nice to just say
@@ -283,10 +293,17 @@ float[3] invOutputTransform
     }
 
     // Apply gamma adjustment to compensate for dim surround
-//     if (SURROUND == 1) {
-//         print( "\nDim surround\n");
-//         XYZ = dim_to_dark( XYZ);
-//     }
+    if (SURROUND == 1) {
+        if ((EOTF == 1) || (EOTF == 2) || (EOTF == 3)) { 
+            /* This uses a crude logical assumption that if the EOTF is BT.1886,
+                sRGB, or gamma 2.6 that the data is SDR and so the SDR gamma
+                compensation factor from v1.0 will apply. Note that in the 
+                future it is intended that this module will be updated to 
+                support surround compensation regardless of luminance 
+                dynamic range. */
+            XYZ = dim_to_dark( XYZ);
+        }
+    }
 
     // XYZ to rendering primaries
     linearCV = mult_f3_f44( XYZ, XYZ_2_AP1_MAT);
