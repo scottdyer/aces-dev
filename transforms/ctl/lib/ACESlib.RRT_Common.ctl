@@ -154,7 +154,8 @@ float[3] rrt_sweeteners( float in[3])
     // --- ACES to RGB rendering space --- //
     aces = clamp_f3( aces, 0., HALF_POS_INF);
     float rgbPre[3] = mult_f3_f44( aces, AP0_2_AP1_MAT);
-
+    rgbPre = clamp_f3( rgbPre, 0., HALF_MAX);
+    
     // --- Global desaturation --- //
     rgbPre = mult_f3_f33( rgbPre, RRT_SAT_MAT);
     return rgbPre;
