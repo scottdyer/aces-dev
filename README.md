@@ -77,7 +77,7 @@ A series of new standard dynamic range (SDR) ODTs have been added to ACES 1.1.  
 
 ACES 1.1 also includes the first release of a series of Output Transforms that combine the RRT and an ODT into a single transform.  The new Output Transforms replace the previous HDR ODTs.  The new Output Transforms are based on a unified, parametric output function.  The individual Output Transforms pass a series of parameters to the underlying output function to improve the consistency of the image processing operations.  Examples of the parameters that that are specified in the Output Transforms include the display primaries, display white point, display max luminance, display min luminance, luminance reproduction of mid-gray, limiting primaries (if any), surround, display EOTF, etc.  In the future, this will make it trivial to generate Output Transforms for non-standard devices.  
 
-Output Transforms using the underlying parametric output function are only provided for HDR devices in dark surround environments at this time.  These Output Transforms may be used for dim surround environments but creative adjustments to contrast and saturation may be desirable and should be saved as a "trim pass."  SDR Output Transforms may replace existing ODTs in a future version of ACES as the technology matures and sees greater production usage.  This has the potential to greatly simplify the implementation of future ACES releases for ACES product partners.  The Output Transforms included in this release were used in major feature and television projects prior to the ACES 1.1 release but additional feedback is always welcomed at ACEScentral.com. 
+Output Transforms using the underlying parametric output function are only provided for HDR devices in dark surround environments at this time.  These Output Transforms may be used for dim surround environments but creative adjustments to contrast and saturation may be desirable and should be saved as a "trim pass."  SDR Output Transforms may replace existing ODTs in a future version of ACES as the technology matures and sees greater production usage.  This has the potential to greatly simplify the implementation of future ACES releases for ACES Product Partners.  The Output Transforms included in this release were used in major feature and television projects prior to the ACES 1.1 release but additional feedback is always welcomed at ACEScentral.com. 
 
 ### Versioning ###
  
@@ -116,7 +116,7 @@ Academy under the following terms and conditions: A worldwide, royalty-free,
 non-exclusive right to copy, modify, create derivatives, and use, in source and
 binary forms, is hereby granted, subject to acceptance of this license.
 
-Copyright 2016 Academy of Motion Picture Arts and Sciences (A.M.P.A.S.).
+Copyright 2018 Academy of Motion Picture Arts and Sciences (A.M.P.A.S.).
 Portions contributed by others as indicated. All rights reserved.
 
 Performance of any of the aforementioned acts indicates acceptance to be bound
