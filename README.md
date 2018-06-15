@@ -19,50 +19,65 @@ This toolkit is intended to serve as a distribution mechanism for key components
 
 ### Changes from Previous Release ###
 
-Though the "master" branch is 1.1, the current major version of ACES remains 1.0. The 1.1 update adds a number of transforms but does not change the look or modify the existing core transforms (beyond addressing reported bugs and/or inconsequential formatting/whitespace changes).
+Though the "master" branch is 1.1, the current major version of ACES remains 1.  This means the 1.1 update adds a number of transforms but does not change the look or modify the existing core transforms (beyond addressing reported bugs and/or inconsequential formatting/whitespace changes).
 
-As always, you should check the hotfixes and dev branches for the latest bug fixes and new features that will ultimately be rolled into a future version of ACES.  These improvements will continue to be staged on the dev branch for testing as they become available.
+As always, you should check the hotfixes and dev branches for the latest bug fixes and new features that will ultimately be rolled into a future version of ACES.  Improvements will continue to be staged on the dev branch for testing as they become available.
 
 Included in ACES 1.1:
 
-* New Transforms: 
-    * P3 ODTs:
+* New Features: 
+    * Add P3 ODTs:
         * P3D65 (and inverse)
         * P3D65 "D60 simulation" (i.e. D60 adapted white point) (and inverse)
         * P3DCI "D65 simulation" (i.e. D65 adapted white point) (and inverse)
         * P3D65 limited to Rec.709 (inverse not required)
-    * Rec.2020 ODTs:
+    * Add Rec.2020 ODTs:
         * Rec.2020 limited to Rec.709 (inverse not required)
         * Rec.2020 limited to P3D65 (inverse not required)
-    * DCDM ODT:
+    * Add DCDM ODT:
         * DCDM with D65 adapted white point and limited to P3D65 (and inverse)
-    * ACESlib:
-        * SSTS: code for the Single Stage Tone Scale
+    * Add additional ACESlib and Utilities functions:
+        * SSTS: code for the Single Stage Tone Scale used in HDR Output Transforms
         * OutputTransform: beginning of modules needed for parameterizing Output Transforms
-    * HDR Output Transforms (RRT+ODT):
+    * Add HDR Output Transforms (RRT+ODT) for Dolby Cinema, Rec.2020 ST-2084 (1000, 2000 and 4000 nit) and HLG (1000 nit).
         * P3D65 (108 cd/m^2) ST.2084 - designed for use in Dolby Cinema (and inverse)
         * Rec.2020 (1000 cd/m^2) ST.2084 (and inverse)
         * Rec.2020 (2000 cd/m^2) ST.2084 (and inverse)
         * Rec.2020 (4000 cd/m^2) ST.2084 (and inverse)
         * Rec.2020 (1000 cd/m^2) HLG (and inverse)
+    * Add LMT that can help correct highlight clipping artifacts
     * Add new reference images for new transforms
+    * Remove HDR ODTs (and inverses)
+* New Documentation:
+	* TB-2018-001 - Derivation of the ACES White Point CIE Chromaticity Coordinates
 * Bug Fixes:
+	* Arri IDT - Improve linearization of LogC data
+	* Improve consistency of color space chromaticities in ACESlib modules
     * Update copy and paste typo in ACESproxy document
     * Update ODT functions legal range input variable usage to avoid a situation where it may not execute as intended.
     * Update miscellaneous to local variables in utility functions to avoid clashes with existing global variables
     * Update miscellaneous minor errors in Transform IDs
     * Update miscellaneous transforms missing ACESuserName Tags
 * Other:
-    * Rename DCDM_P3D60 to DCDM_P3D60limited
-    * Rename P3DCI to P3DCI_D60sim
+    * Rename some existing transforms for clarity
     * Miscellaneous white space fixes in CTL transforms
     * Miscellaneous typo fixes in CTL transform comments
+    * Miscellaneous README and CTL comment updates
+    * Miscellaneous LaTeX documentation typo and code fixes
+    * Update tranformIDs where appropriate
+    * Update README and CHANGELOG
 
 For a more detailed list of changes see the [CHANGELOG](./CHANGELOG.md) and in the [commit history](https://github.com/ampas/aces-dev/commits/master).
 
-#### Notes on ACEScct ####
+#### Notes on New ODTs ####
 
-A new color correction working space has been added to ACES 1.0.3.  The new working space, known as ACEScct, is intended to address some colorists' desire for a grading behavior similar to that of traditional log film scans.  ACEScct is intended to be an alternate color correction working space to ACEScc for those who prefer its grading behavior.  As such, developers implementing ACES 1.0.3 in products that previously only used ACEScc should offer end users a choice of ACEScc or ACEScct in the user interface as the color correction working space.  Among the characteristics of ACEScct is a more distict "milking" or "fogging" of shadows when a lift operation is applied when compared to the same operation applied in ACEScc.  This is a result of the addition of a "toe" to the non-linear encoding function.  It is important to note that ACEScct is *NOT* compatible with ASC-CDL values generated on-set using the ACESproxy encoding.  If there is a need to reproduce a look generated on-set where ACESproxy was used, ACEScc must be used in the dailies and/or DI environment.
+A series of new standard dynamic range (SDR) ODTs have been added to ACES 1.1.  These ODTs were added by the request of the ACES community based on production needs.  Examples include P3 ODTs for devices with a D65 calibration white point, simulation of a D65 white point on a P3 device with a DCI calibration white point, and limiting of output image colorimetry to Rec.709 when using a P3D65 calibrated device.  Limiting ODTs were also added for Rec.2020 to restrict the image colorimetry to Rec.709 and P3.  A DCDM ODT with limiting to P3D65 has been added to compliment the existing DCDM ODT with limiting to P3D60.  These transforms provide support for additional use cases not included in previous ACES releases.
+
+#### Notes on New HDR Output Transforms ####
+
+ACES 1.1 also includes the first release of a series of Output Transforms that combine the RRT and an ODT into a single transform.  The new Output Transforms replace the previous HDR ODTs.  The new Output Transforms are based on a unified, parametric output function.  The individual Output Transforms pass a series of parameters to the underlying output function to improve the consistency of the image processing operations.  Examples of the parameters that that are specified in the Output Transforms include the display primaries, display white point, display max luminance, display min luminance, luminance reproduction of mid-gray, limiting primaries (if any), surround, display EOTF, etc.  In the future, this will make it trivial to generate Output Transforms for non-standard devices.  
+
+Output Transforms using the underlying parametric output function are only provided for HDR devices in dark surround environments at this time.  These Output Transforms may be used for dim surround environments but creative adjustments to contrast and saturation may be desirable and should be saved as a "trim pass."  SDR Output Transforms may replace existing ODTs in a future version of ACES as the technology matures and sees greater production usage.  This has the potential to greatly simplify the implementation of future ACES releases for ACES product partners.  The Output Transforms included in this release were used in major feature and television projects prior to the ACES 1.1 release but additional feedback is always welcomed at ACEScentral.com. 
 
 ### Versioning ###
  
