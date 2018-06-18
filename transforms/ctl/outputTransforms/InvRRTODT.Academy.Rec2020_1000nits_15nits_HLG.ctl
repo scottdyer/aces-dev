@@ -27,9 +27,9 @@ const int EOTF = 5;                             // 0: ST-2084 (PQ)
                                                 // 4: linear (no EOTF)
                                                 // 5: HLG
 
-const int SURROUND = 0;                         // 0: dark
-                                                // 1: dim
-                                                // 2: normal
+const int SURROUND = 0;                         // 0: dark ( NOTE: this is the only active setting! )
+                                                // 1: dim ( *inactive* - selecting this will have no effect )
+                                                // 2: normal ( *inactive* - selecting this will have no effect )
 
 const bool STRETCH_BLACK = true;                // stretch black luminance to a PQ code value of 0
 const bool D60_SIM = false;                       

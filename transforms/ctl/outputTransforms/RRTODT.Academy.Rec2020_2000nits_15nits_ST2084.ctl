@@ -13,6 +13,22 @@
 //  D65, and the viewing environment is that of a dark surround. Mid-gray
 //  luminance is targeted at 15 cd/m^2.
 //
+// NOTE :
+//  The parameterized "Output Transform" function used as basis for this 
+//  transform includes a parameter labeled "SURROUND". However, as noted in 
+//  "ACESlib.OutputTransforms.ctl", this sub-module is currently a "placeholder"
+//  and as such currently only supports a rendering intended for dark surround 
+//  environments. While it is planned for future releases to fully activate the 
+//  this module and provide adjustment for dark/dim/normal surrounds, setting 
+//  SURROUND equal to either dim or normal will have no effect at this time.
+//  
+//  That being said, these Output Transforms have been used successfully on
+//  major feature and television projects when mastering for home HDR where a 
+//  dim surround environment is assumed. Based on that, these transforms are 
+//  considered adequate for use for dim surround mastering, although, as always,
+//  creative adjustments to contrast and saturation may be desirable and should
+//  be saved as a "trim pass."
+//
 // Device Primaries : 
 //  Primaries are those specified in Rec. ITU-R BT.2020
 //  CIE 1931 chromaticities:  x         y         Y
@@ -56,9 +72,9 @@ const int EOTF = 0;                             // 0: ST-2084 (PQ)
                                                 // 4: linear (no EOTF)
                                                 // 5: HLG
 
-const int SURROUND = 0;                         // 0: dark
-                                                // 1: dim
-                                                // 2: normal
+const int SURROUND = 0;                         // 0: dark ( NOTE: this is the only active setting! )
+                                                // 1: dim ( *inactive* - selecting this will have no effect )
+                                                // 2: normal ( *inactive* - selecting this will have no effect )
 
 const bool STRETCH_BLACK = true;                // stretch black luminance to a PQ code value of 0
 const bool D60_SIM = false;                       
