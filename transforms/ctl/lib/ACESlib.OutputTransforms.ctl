@@ -185,7 +185,7 @@ float[3] outputTransform
         else {
             outputCV = Y_2_ST2084_f3( linCV_2_Y_f3(linearCV, Y_MAX, Y_MIN) );        
         }
-        outputCV = ST2084_2_HLG_1000nits( outputCV);
+        outputCV = ST2084_2_HLG_1000nits_f3( outputCV);
     }
 
     if (LEGAL_RANGE == true) {
@@ -250,7 +250,7 @@ float[3] invOutputTransform
     } else if (EOTF == 4) { // linear
         linearCV = Y_2_linCV_f3( outputCV, Y_MAX, Y_MIN);
     } else if (EOTF == 5) { // HLG
-        outputCV = HLG_2_ST2084_1000nits( outputCV);
+        outputCV = HLG_2_ST2084_1000nits_f3( outputCV);
         if (STRETCH_BLACK == true) {
             linearCV = Y_2_linCV_f3( ST2084_2_Y_f3( outputCV), Y_MAX, 0.);
         } else {

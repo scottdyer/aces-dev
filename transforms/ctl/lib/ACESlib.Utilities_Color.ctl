@@ -460,7 +460,7 @@ float[3] ST2084_2_Y_f3( float in[3])
 
 
 // Conversion of PQ signal to HLG, as detailed in Section 7 of ITU-R BT.2390-0
-float[3] ST2084_2_HLG_1000nits( float PQ[3]) 
+float[3] ST2084_2_HLG_1000nits_f3( float PQ[3]) 
 {
     // ST.2084 EOTF (non-linear PQ to display light)
     float displayLinear[3] = ST2084_2_Y_f3( PQ);
@@ -516,7 +516,7 @@ float[3] ST2084_2_HLG_1000nits( float PQ[3])
 
 
 // Conversion of HLG to PQ signal, as detailed in Section 7 of ITU-R BT.2390-0
-float[3] HLG_2_ST2084_1000nits( float HLG[3]) 
+float[3] HLG_2_ST2084_1000nits_f3( float HLG[3]) 
 {
     const float a = 0.17883277;
     const float b = 0.28466892; // 1.-4.*a;
