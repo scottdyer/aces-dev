@@ -1,3 +1,13 @@
+
+// <ACEStransformID>ACESlib.OutputTransforms.a1.1</ACEStransformID>
+// <ACESuserName>ACES 1.0 Lib - Output Transforms</ACESuserName>
+
+//
+// Contains functions used for forward and inverse Output Transforms (RRT+ODT) 
+//
+
+
+
 import "ACESlib.Transform_Common";
 import "ACESlib.RRT_Common";
 import "ACESlib.ODT_Common";

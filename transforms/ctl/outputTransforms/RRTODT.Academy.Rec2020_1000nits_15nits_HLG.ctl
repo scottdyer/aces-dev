@@ -1,5 +1,5 @@
 
-// <ACEStransformID>ODT.Academy.Rec2020_1000nits_15nits_HLG.a1.0.3</ACEStransformID>
+// <ACEStransformID>ODT.Academy.Rec2020_1000nits_15nits_HLG.a1.1</ACEStransformID>
 // <ACESuserName>ACES 1.0 Output - Rec.2020 HLG (1000 nits)</ACESuserName>
 
 // 

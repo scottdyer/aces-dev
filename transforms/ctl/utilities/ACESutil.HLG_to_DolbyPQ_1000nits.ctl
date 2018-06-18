@@ -1,3 +1,9 @@
+
+// <ACEStransformID>ACESutil.HLG_to_DolbyPQ_1000nits.a1.1</ACEStransformID>
+// <ACESuserName>HLG to Dolby PQ</ACESuserName>
+
+
+
 import "ACESlib.Utilities_Color";
 
 

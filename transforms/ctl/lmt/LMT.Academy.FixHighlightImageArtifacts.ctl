@@ -1,3 +1,7 @@
+
+// <ACEStransformID>LMT.Academy.FixHighlightImageArtifacts.a1.1</ACEStransformID>
+// <ACESuserName>ACES 1.0 Look - Highlight Artifact Fix</ACESuserName>
+
 //
 // LMT for fixing occasional image artifacts seen in bright highlights (e.g. sirens,headlights,etc.)
 // Note that this will change scene colorimetry! (but tends to do so in a pleasing way)

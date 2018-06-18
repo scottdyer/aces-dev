@@ -1,3 +1,8 @@
+
+// <ACEStransformID>InvODT.Academy.Rec2020_1000nits_15nits_HLG.a1.1</ACEStransformID>
+// <ACESuserName>ACES 1.0 Inverse Output - Rec.2020 HLG (1000 nits)</ACESuserName>
+
+
 import "ACESlib.Utilities";
 import "ACESlib.OutputTransforms";
 
