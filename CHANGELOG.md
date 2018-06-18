@@ -1,33 +1,59 @@
-**Version 1.1 (March xx, 2018):**
+**Version 1.1 (June 15, 2018):**
 
-* New transforms and CTL: 
-    * P3 ODTs:
+* New Features: 
+    * Add P3 ODTs:
         * P3D65 (and inverse)
         * P3D65 "D60 simulation" (i.e. D60 adapted white point) (and inverse)
         * P3DCI "D65 simulation" (i.e. D65 adapted white point) (and inverse)
         * P3D65 limited to Rec.709 (inverse not required)
-    * Rec.2020 ODTs:
+    * Add Rec.2020 ODTs:
         * Rec.2020 limited to Rec.709 (inverse not required)
         * Rec.2020 limited to P3D65 (inverse not required)
-    * DCDM ODT:
+    * Add DCDM ODT:
         * DCDM with D65 adapted white point and limited to P3D65 (and inverse)
-    * ACESlib:
-        * SSTS: code for the Single Stage Tone Scale
+    * Add additional ACESlib and Utilities functions:
+        * SSTS: code for the Single Stage Tone Scale used in HDR Output Transforms
         * OutputTransform: beginning of modules needed for parameterizing Output Transforms
-    * HDR Output Transforms (RRT+ODT):
+    * Add HDR Output Transforms (RRT+ODT):
         * P3D65 (108 cd/m^2) ST.2084 - designed for use in Dolby Cinema (and inverse)
         * Rec.2020 (1000 cd/m^2) ST.2084 (and inverse)
         * Rec.2020 (2000 cd/m^2) ST.2084 (and inverse)
         * Rec.2020 (4000 cd/m^2) ST.2084 (and inverse)
         * Rec.2020 (1000 cd/m^2) HLG (and inverse)
+    * Add LMT that can help correct highlight clipping artifacts
     * Add new reference images for new transforms
+    * Remove HDR ODTs (and inverses)
+    	* ODT.Academy.P3D60_ST2084_1000nits.ctl
+    	* ODT.Academy.P3D60_ST2084_2000nits.ctl
+    	* ODT.Academy.P3D60_ST2084_4000nits.ctl
+    	* ODT.Academy.Rec2020_ST2084_1000nits.ctl
+    	* InvODT.Academy.P3D60_ST2084_1000nits.ctl
+    	* InvODT.Academy.P3D60_ST2084_2000nits.ctl
+    	* InvODT.Academy.P3D60_ST2084_4000nits.ctl
+    	* InvODT.Academy.Rec2020_ST2084_1000nits.ctl
+* New Documentation:
+	* TB-2018-001 - Derivation of the ACES White Point CIE Chromaticity Coordinates
+		* Python module with reference implementation of TB-2018-001
+		* iPython Notebook with calculation of values used in TB-2018-001
+* Bug Fixes:
+	* Arri IDT - Improve linearization of LogC data
+	* Improve consistency of color space chromaticities in ACESlib modules
+    * Update copy and paste typo in ACESproxy document
+    * Update ODT functions legal range input variable usage to avoid a situation where it may not execute as intended.
+    * Update miscellaneous to local variables in utility functions to avoid clashes with existing global variables
+    * Update miscellaneous minor errors in Transform IDs
+    * Update miscellaneous transforms missing ACESuserName Tags
 * Other:
     * Rename some existing transforms for clarity:
-        * DCDM_P3D60 to DCDM_P3D60limited
+        * Rename DCDM_P3D60 to DCDM_P3D60limited
         * Rename P3DCI to P3DCI_D60sim
         * Rename RGBmonitor to sRGB_100nits
     * Miscellaneous white space fixes in CTL transforms
     * Miscellaneous typo fixes in CTL transform comments
+    * Miscellaneous README and CTL comment updates
+    * Miscellaneous LaTeX documentation typo and code fixes
+    * Update tranformIDs where appropriate
+    * Update README and CHANGELOG
 
 **Version 1.0.3 (September 20, 2016):**
 
