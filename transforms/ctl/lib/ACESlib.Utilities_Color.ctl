@@ -475,9 +475,19 @@ float[3] ST2084_2_HLG_1000nits( float PQ[3])
     const float gamma = 1.2;
     
     float sceneLinear[3];
-    sceneLinear[0] = pow( (Y_d-beta)/alpha, (1.-gamma)/gamma) * ((displayLinear[0]-beta)/alpha);
-    sceneLinear[1] = pow( (Y_d-beta)/alpha, (1.-gamma)/gamma) * ((displayLinear[1]-beta)/alpha);
-    sceneLinear[2] = pow( (Y_d-beta)/alpha, (1.-gamma)/gamma) * ((displayLinear[2]-beta)/alpha);
+    if (Y_d == 0.) { 
+        /* This case is to protect against pow(0,-N)=Inf error. The ITU document
+        does not offer a recommendation for this corner case. There may be a 
+        better way to handle this, but for now, this works. 
+        */ 
+        sceneLinear[0] = 0.;
+        sceneLinear[1] = 0.;
+        sceneLinear[2] = 0.;        
+    } else {
+        sceneLinear[0] = pow( (Y_d-beta)/alpha, (1.-gamma)/gamma) * ((displayLinear[0]-beta)/alpha);
+        sceneLinear[1] = pow( (Y_d-beta)/alpha, (1.-gamma)/gamma) * ((displayLinear[1]-beta)/alpha);
+        sceneLinear[2] = pow( (Y_d-beta)/alpha, (1.-gamma)/gamma) * ((displayLinear[2]-beta)/alpha);
+    }
 
     // HLG OETF (scene linear to non-linear signal value)
     const float a = 0.17883277;
