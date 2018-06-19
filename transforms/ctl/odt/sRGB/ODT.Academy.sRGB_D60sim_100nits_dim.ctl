@@ -1,5 +1,5 @@
 
-// <ACEStransformID>ODT.Academy.sRGB_D60sim_100nits_dim.a1.1</ACEStransformID>
+// <ACEStransformID>ODT.Academy.RGBmonitor_D60sim_100nits_dim.a1.0.3</ACEStransformID>
 // <ACESuserName>ACES 1.0 Output - sRGB (D60 sim.)</ACESuserName>
 
 // 
