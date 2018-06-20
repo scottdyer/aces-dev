@@ -60,6 +60,9 @@ Included in ACES 1.1:
     * Update miscellaneous transforms missing ACESuserName Tags
 * Other:
     * Rename some existing transforms for clarity
+    	* Rename DCDM_P3D60 to DCDM_P3D60limited
+        * Rename P3DCI to P3DCI_D60sim
+        * Rename RGBmonitor to sRGB_100nits
     * Miscellaneous white space fixes in CTL transforms
     * Miscellaneous typo fixes in CTL transform comments
     * Miscellaneous README and CTL comment updates
@@ -80,6 +83,9 @@ ACES 1.1 also includes the first release of a series of Output Transforms that c
 Output Transforms using the underlying parametric output function are only provided for HDR devices in dark surround environments at this time. Currently, modifying the surround parameter inside the individual HDR Output Transforms has no effect when the EOTF is set to either ST-2084(PQ) or HLG.  It is recommended that the included HDR Output Transforms also be used for dim surround environments but creative adjustments to contrast and saturation may be desirable and should be saved as a "trim pass."  The lack of a proper surround compensation for HDR devices will be addressed in a future ACES release.  
 
 SDR Output Transforms may replace existing ODTs in a future version of ACES as the technology matures and sees greater production usage.  This has the potential to greatly simplify the implementation of future ACES releases for ACES Product Partners.  The Output Transforms included in this release were used in major feature and television projects prior to the ACES 1.1 release but additional feedback is always welcomed at ACEScentral.com.   
+
+#### Notes on rename of some existing transforms ####
+The CTL file names and values of <ACESuserName> of some of the existing ACES transforms has been modified for clarity.  In each case the output of the transform remains the same.  Academy S-2014-002 states “Any transform updates that do not change the output of that transform shall not require the Transform Identifier to be incremented – e.g. whitespace changes, modifications to code comments, etc.”  For this reason, the values <ACEStransformID> have not been changed.  Implementors should take care to update their user interfaces to display the new values of <ACESuserName> where applicable and to alert end-users of the name changes in their product documentation.
 
 ### Versioning ###
  
