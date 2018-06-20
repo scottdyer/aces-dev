@@ -60,6 +60,9 @@ Included in ACES 1.1:
     * Update miscellaneous transforms missing ACESuserName Tags
 * Other:
     * Rename some existing transforms for clarity
+    	* Rename DCDM_P3D60 to DCDM_P3D60limited
+        * Rename P3DCI to P3DCI_D60sim
+        * Rename RGBmonitor to sRGB_100nits
     * Miscellaneous white space fixes in CTL transforms
     * Miscellaneous typo fixes in CTL transform comments
     * Miscellaneous README and CTL comment updates
@@ -71,15 +74,16 @@ For a more detailed list of changes see the [CHANGELOG](./CHANGELOG.md) and in t
 
 #### Notes on New ODTs ####
 
-A series of new standard dynamic range (SDR) ODTs have been added to ACES 1.1.  These ODTs were added by the request of the ACES community based on production needs.  Examples include P3 ODTs for devices with a D65 calibration white point, simulation of a D65 white point on a P3 device with a DCI calibration white point, and limiting of output image colorimetry to Rec.709 when using a P3D65 calibrated device.  Limiting ODTs were also added for Rec.2020 to restrict the image colorimetry to Rec.709 and P3.  A DCDM ODT with limiting to P3D65 has been added to compliment the existing DCDM ODT with limiting to P3D60.  These transforms provide support for additional use cases not included in previous ACES releases.
+A series of new standard dynamic range (SDR) ODTs are included in this release.  These ODTs were added at the request of the ACES Community based on their production needs.  Examples include: P3 ODTs for devices with a D65 calibration white point, simulation of a D65 white point on a P3 device with a DCI calibration white point, and limiting of output image colorimetry to Rec.709 when using a P3D65 calibrated device.  Additional limiting ODTs were also added for Rec.2020 to restrict the image colorimetry to Rec.709 and P3.  A DCDM ODT with limiting to P3D65 were added to compliment the existing DCDM ODT with limiting to P3D60.  These transforms provide support for additional use cases not included in previous ACES releases.
 
 #### Notes on New HDR Output Transforms ####
 
-ACES 1.1 also includes the first release of a series of Output Transforms that combine the RRT and an ODT into a single transform.  The new Output Transforms replace the previous HDR ODTs.  The new Output Transforms are based on a unified, parametric output function.  The individual Output Transforms pass a series of parameters to the underlying output function to improve the consistency of the image processing operations.  Examples of the parameters that that are specified in the Output Transforms include the display primaries, display white point, display max luminance, display min luminance, luminance reproduction of mid-gray, limiting primaries (if any), surround, display EOTF, etc.  In the future, this will make it trivial to generate Output Transforms for non-standard devices.  
+ACES 1.1 also includes the first release of a series of Output Transforms that combine the RRT and an ODT into a single transform.  The new Output Transforms replace the previous HDR ODTs.  The new Output Transforms are based on a unified, parametric output function.  These individual Output Transforms pass a series of parameters to the underlying output function to improve the consistency of the image processing operations.  Examples of the parameters that that are specified in the Output Transforms include: display primaries, display white point, display max luminance, display min luminance, luminance reproduction of mid-gray, limiting primaries (if any), surround, display EOTF, etc.  In the future, this will make it trivial to generate Output Transforms for non-standard devices.  
 
-Output Transforms using the underlying parametric output function are only provided for HDR devices in dark surround environments at this time. Currently, modifying the surround parameter inside the individual HDR Output Transforms has no effect when the EOTF is set to either ST-2084(PQ) or HLG.  It is recommended that the included HDR Output Transforms also be used for dim surround environments but creative adjustments to contrast and saturation may be desirable and should be saved as a "trim pass."  The lack of a proper surround compensation for HDR devices will be addressed in a future ACES release.  
-
-SDR Output Transforms may replace existing ODTs in a future version of ACES as the technology matures and sees greater production usage.  This has the potential to greatly simplify the implementation of future ACES releases for ACES Product Partners.  The Output Transforms included in this release were used in major feature and television projects prior to the ACES 1.1 release but additional feedback is always welcomed at ACEScentral.com.   
+Output Transforms using the underlying parametric output function are only provided for HDR devices in dark surround environments at this time, although the transforms are suitable for use in both dark and dim surround environments (they’ve been used this way on several major motion pictures with a corresponding “trim pass” to adjust contrast and saturation). Modifying the surround parameter inside the individual HDR Output Transforms has no effect when the EOTF is set to either ST-2084(PQ) or HLG.  A functional dim surround compensation for HDR devices will be addressed in a future ACES release.  
+   
+#### Notes on rename of some existing transforms ####
+The CTL file names and values of <ACESuserName> of some of the existing ACES transforms have been modified for clarity.  In each case, the output code values from the transform remains the same.  Academy S-2014-002 states “Any transform updates that do not change the output of that transform shall not require the Transform Identifier to be incremented – e.g. whitespace changes, modifications to code comments, etc.”  For this reason, the values <ACEStransformID> have not been changed.  Implementors should take care to update their user interfaces to display the new values of <ACESuserName> where applicable and to alert end-users of the name changes in their product documentation.
 
 ### Versioning ###
  
