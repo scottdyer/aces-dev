@@ -40,8 +40,6 @@
 	* Improve consistency of color space chromaticities in ACESlib modules
     * Update copy and paste typo in ACESproxy document
     * Update ODT functions legal range input variable usage to avoid a situation where it may not execute as intended.
-    * Update miscellaneous to local variables in utility functions to avoid clashes with existing global variables
-    * Update miscellaneous minor errors in Transform IDs
     * Update miscellaneous transforms missing ACESuserName Tags
 * Other:
     * Rename some existing transforms for clarity:
@@ -52,7 +50,7 @@
     * Miscellaneous typo fixes in CTL transform comments
     * Miscellaneous README and CTL comment updates
     * Miscellaneous LaTeX documentation typo and code fixes
-    * Update tranformIDs where appropriate
+    * Update ACEStranformIDs where appropriate
     * Update README and CHANGELOG
 
 **Version 1.0.3 (September 20, 2016):**
