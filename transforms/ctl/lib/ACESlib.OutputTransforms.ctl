@@ -77,18 +77,13 @@ float[3] outputTransform_wPct
         TODO: Fix in future version
     */
     TsParams PARAMS_DEFAULT = init_TsParams_mid( Y_MIN, Y_MAX, SLOPE_MIN, SLOPE_MID, SLOPE_MAX, PCT_LOW, PCT_HIGH);
-    print( PARAMS_DEFAULT.Min.x, ", ", PARAMS_DEFAULT.Min.y, ", ", PARAMS_DEFAULT.Min.slope, "\n" );
-    print( PARAMS_DEFAULT.Mid.x, ", ", PARAMS_DEFAULT.Mid.y, ", ", PARAMS_DEFAULT.Mid.slope, "\n" );
-    print( PARAMS_DEFAULT.Max.x, ", ", PARAMS_DEFAULT.Max.y, ", ", PARAMS_DEFAULT.Max.slope, "\n" );
+//     print( PARAMS_DEFAULT.Min.x, ", ", PARAMS_DEFAULT.Min.y, ", ", PARAMS_DEFAULT.Min.slope, "\n" );
+//     print( PARAMS_DEFAULT.Mid.x, ", ", PARAMS_DEFAULT.Mid.y, ", ", PARAMS_DEFAULT.Mid.slope, "\n" );
+//     print( PARAMS_DEFAULT.Max.x, ", ", PARAMS_DEFAULT.Max.y, ", ", PARAMS_DEFAULT.Max.slope, "\n" );
                     
     float expShift = log2(inv_ssts(Y_MID, PARAMS_DEFAULT))-log2(0.18);
 
     TsParams PARAMS = init_TsParams_mid( Y_MIN, Y_MAX, SLOPE_MIN, SLOPE_MID, SLOPE_MAX, PCT_LOW, PCT_HIGH, expShift);
-    print( PARAMS.Min.x, ", ", PARAMS.Min.y, ", ", PARAMS.Min.slope, "\n" );
-    print( PARAMS.Mid.x, ", ", PARAMS.Mid.y, ", ", PARAMS.Mid.slope, "\n" );
-    print( PARAMS.Max.x, ", ", PARAMS.Max.y, ", ", PARAMS.Max.slope, "\n" );
-    print( "COEFSLOW: ", PARAMS.coefsLow[0], ", ", PARAMS.coefsLow[1], ", ", PARAMS.coefsLow[2], ", ", PARAMS.coefsLow[3], ", ", PARAMS.coefsLow[4], "\n");
-    print( "COEFSHIGH: ", PARAMS.coefsHigh[0], ", ", PARAMS.coefsHigh[1], ", ", PARAMS.coefsHigh[2], ", ", PARAMS.coefsHigh[3], ", ", PARAMS.coefsHigh[4], "\n");
     
     // RRT sweeteners
     float rgbPre[3] = rrt_sweeteners( in);
