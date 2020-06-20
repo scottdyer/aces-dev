@@ -140,6 +140,8 @@
 		<xs:sequence>
 			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="hash" type="aces:hashType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="uuid" type="dcml:UUIDType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="file" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 
