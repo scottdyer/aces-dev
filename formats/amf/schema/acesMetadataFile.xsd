@@ -208,19 +208,19 @@
 	</xs:complexType>
 
 	<xs:complexType name="outputTransformType">
-		<xs:complexContent>
-			<xs:extension base="aces:transformType">
-				<xs:choice minOccurs="1" maxOccurs="1">
-					<xs:sequence>
-						<xs:element name="transformId" type="aces:tnOutputTransform" minOccurs="1" maxOccurs="1"/>
-					</xs:sequence>
-					<xs:sequence>
-						<xs:element name="referenceRenderingTransform" type="aces:referenceRenderingTransformType" minOccurs="1" maxOccurs="1"/>
-						<xs:element name="outputDeviceTransform" type="aces:outputDeviceTransformType" minOccurs="1" maxOccurs="1"/>
-					</xs:sequence>
-				</xs:choice>
-			</xs:extension>
-		</xs:complexContent>
+		<xs:choice minOccurs="1" maxOccurs="1">
+			<xs:sequence>
+				<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="hash" type="aces:hashType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="uuid" type="dcml:UUIDType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="file" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="transformId" type="aces:tnOutputTransform" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="referenceRenderingTransform" type="aces:referenceRenderingTransformType" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="outputDeviceTransform" type="aces:outputDeviceTransformType" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	
 	<xs:complexType name="inverseOutputTransformType">
