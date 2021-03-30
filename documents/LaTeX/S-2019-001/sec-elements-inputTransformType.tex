@@ -15,10 +15,11 @@
         {\texttt{aces:inverseOutputTransformType}}
         {Required}{1}{1}
         {None}{None}
-        {aces:description, aces:file, aces:hash, aces:transformId, aces:uuid}
-        {\lstinline{<aces:inverseOutputTransform>} \\
+        {\texttt{aces:inputTransform}}
+        {\texttt{aces:description, aces:file, aces:hash, aces:transformId, aces:uuid}}
+        {\lstinline{<aces:inverseOutputDeviceTransform>} \\
         ... \\
-        \lstinline{</aces:inverseOutputTransform>}}
+        \lstinline{</aces:inverseOutputDeviceTransform>}}
         
 \element{aces:inputTransformType / aces:inverseOutputTransform}
         {This element contains all the elements describing the transforms associated with an inverse output transform used to convert output referred images to ACES 2065-1.}
@@ -26,7 +27,8 @@
         {\texttt{aces:inverseOutputTransformType}}
         {Required}{1}{1}
         {None}{None}
-        {aces:description, aces:file, aces:hash, aces:transformId, aces:uuid}
+        {\texttt{aces:inputTransform}}
+        {\texttt{aces:description, aces:file, aces:hash, aces:transformId, aces:uuid}}
         {\lstinline{<aces:inverseOutputTransform>} \\
         ... \\
         \lstinline{</aces:inverseOutputTransform>}}
@@ -37,7 +39,8 @@
         {\texttt{aces:inverseReferenceRenderingTransformType}}
         {Required}{1}{1}
         {None}{None}
-        {aces:description, aces:file, aces:hash, aces:transformId, aces:uuid}
+        {\texttt{aces:inputTransform}}
+        {\texttt{aces:description, aces:file, aces:hash, aces:transformId, aces:uuid}}
         {\lstinline{<aces:inverseReferenceRenderingTransform>} \\
         ... \\
         \lstinline{</aces:inverseReferenceRenderingTransform>}}

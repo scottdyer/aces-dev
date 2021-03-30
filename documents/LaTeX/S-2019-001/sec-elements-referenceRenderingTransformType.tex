@@ -1,6 +1,6 @@
-\subsection{\texttt{aces:referenceRenderingTransform}}
+\subsection{\texttt{aces:referenceRenderingTransformType}}
 
-\element{aces:referenceRenderingTransform / aces:file}
+\element{aces:referenceRenderingTransformType / aces:file}
 		{This element is used to communicate the location of a file used as an ACES Reference Rendering Transform that converts images encoded in ACES color space to OCES.}
 		{images/acesMetadataFile_xsd_Element_aces_file_5.png}
 		{\texttt{xs:anyURI}}
@@ -9,7 +9,7 @@
 		{\texttt{aces:referenceRenderingTransform}}{None}
 		{\lstinline{<aces:file>file:///referenceRenderingTransform.clf</aces:file>}}
 		
-\element{aces:referenceRenderingTransform / aces:transformId}
+\element{aces:referenceRenderingTransformType / aces:transformId}
         {This element is used to communicate the transformID of the ACES Reference Rendering Transform.  For more information on transformIDs see S-2014-002 Academy Color Encoding System -- Versioning system.  Valid transforms for this element are Reference Rendering Transform (RRT).  The element is restricted to enforce the use of transformIDs that follow the RRT naming conventions established in the versioning system specification.}
         {images/acesMetadataFile_xsd_Element_aces_transformId_4.png}
         {\texttt{aces:tnReferenceRenderingTransform}}
